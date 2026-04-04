@@ -1,41 +1,46 @@
-# C++ Data Structures & Algorithms Library (dsalgo.h)
+# cds-lib — Custom Data Structure Library
 
- **A single-header, template-based C++ library featuring generic linked lists, sorting algorithms, and essential data structures.**
- 
-## Features
+A cds (custom data structure) library written in C++ where common STL-like 
+data structures are implemented as a learning project to deeply understand 
+data structures and algorithms.
 
-### Data Structures
-- **Linear Structures**:
-  - Singly/Doubly Linked Lists (`SinglyLL`, `DoublyLL`)
-  - Stack (`Stack`) & Queue (`Queue`)
-- **Circular Structures**:
-  - Singly/Doubly Circular Linked Lists (`SinglyCL`, `DoublyCL`)
-- **Trees**:
-  - Binary Search Tree (`BST`) with traversals (Inorder/Preorder/Postorder)
- 
-### Algorithms
-- **Array Operations** (`ArrayX`):
-  - Sorting: BubbleSort, SelectionSort, InsertionSort
-  - Searching: Linear, Bidirectional, Binary Search
-- **Utility Methods**:
-  - `Minimum()`, `Maximum()`, `Summation()`
-  - Frequency counting (`CountFrequency()`), Position-based search
+---
 
-**Key Advantages**  
-✔ **Zero dependencies**
-✔ **Templated** for any data type (`int`, `string`, custom objects)  
-✔ **Memory-safe** with destructors  
-✔ **Competition-ready** 
+## The data structures implemented
 
-## Usage Examples
+| Header | Class | Description |
+|---|---|---|
+| `singly_list.hpp` | `cds::singly_list<T>` | Singly linear linked list |
+| `doubly_list.hpp` | `cds::doubly_list<T>` | Doubly linear linked list |
+| `singly_circular.hpp` | `cds::singly_circular<T>` | Singly circular linked list |
+| `doubly_circular.hpp` | `cds::doubly_circular<T>` | Doubly circular linked list |
+| `stack.hpp` | `cds::stack<T>` | LIFO stack |
+| `queue.hpp` | `cds::queue<T>` | FIFO queue |
+| `bst.hpp` | `cds::bst<T>` | Binary search tree |
+| `array.hpp` | `cds::array<T>` | Array with search and sort |
 
-### Linked List
+---
+
+## How to use this library
+
+Clone the repo and include the header you need.
+```bash
+git clone https://github.com/yourname/cds-lib.git
+```
 ```cpp
-#include "dsalgo.h"
+#include "include/stack.hpp"
 
 int main() {
-    SinglyLL<std::string> list;
-    list.InsertFirst("Hello");
-    list.InsertLast("World");
-    list.Display();  // Output: |Hello|->|World|->NULL
+  cds::stack<int> s;
+  s.push(10);
+  s.push(20);
+  std::cout << s.top();
+  s.pop();
 }
+```
+
+## Compile example
+
+```bash
+g++ main.cpp -o myexe
+./myexe
