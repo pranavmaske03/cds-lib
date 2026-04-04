@@ -7,7 +7,7 @@ namespace cds {
     template <typename T>
     class array {
     public:
-        explicit array(int size);
+        explicit array(int size_);
         array(const array& other);
         array& operator=(const array& other);
         ~array();
@@ -19,7 +19,7 @@ namespace cds {
         bool binary_search(const T& val) const;         
 
         bool is_sorted() const;
-        int  size() const noexcept { return size; }
+        int  size() const noexcept { return size_; }
 
         T& operator[](int index);
         const T& operator[](int index) const;
@@ -33,7 +33,7 @@ namespace cds {
         void quick_sort();               
 
     private:
-        int size;    
+        int size_;    
         T*  data;     
 
         void merge_sort_rec(int left, int right);
@@ -43,25 +43,25 @@ namespace cds {
     };
 
     template <typename T>
-    array<T>::array(int size) : size(size), data(new T[size]) {
-        if(size <= 0) {
+    array<T>::array(int size_) : size_(size_), data(new T[size_]) {
+        if(size_ <= 0) {
             delete[] data;
-            throw std::invalid_argument("Size must be positive");
+            throw std::invalid_argument("size_ must be positive");
         }
     }
 
     template <typename T>
-    array<T>::array(const array& other) : size(other.size), data(new T[other.size]) {
-        for (int i = 0; i < size; ++i) data[i] = other.data[i];
+    array<T>::array(const array& other) : size_(other.size_), data(new T[other.size_]) {
+        for (int i = 0; i < size_; ++i) data[i] = other.data[i];
     }
 
     template <typename T>
     array<T>& array<T>::operator=(const array& other) {
         if (this != &other) {
             delete[] data;
-            size = other.size;
-            data = new T[size];
-            for (int i = 0; i < size; ++i) data[i] = other.data[i];
+            size_ = other.size_;
+            data = new T[size_];
+            for (int i = 0; i < size_; ++i) data[i] = other.data[i];
         }
         return *this;
     }
@@ -73,34 +73,34 @@ namespace cds {
 
     template <typename T>
     void array<T>::print() const {
-        for (int i = 0; i < size; ++i) std::cout << data[i] << " ";
+        for (int i = 0; i < size_; ++i) std::cout << data[i] << " ";
         std::cout << "\n";
     }
 
     template <typename T>
     T& array<T>::operator[](int index) {
-        if (index < 0 || index >= size)
+        if (index < 0 || index >= size_)
             throw std::out_of_range("array[]: index out of range");
         return data[index];
     }
 
     template <typename T>
     const T& array<T>::operator[](int index) const {
-        if (index < 0 || index >= size)
+        if (index < 0 || index >= size_)
             throw std::out_of_range("array[]: index out of range");
         return data[index];
     }
 
     template <typename T>
     bool array<T>::linear_search(const T& val) const {
-        for (int i = 0; i < size; ++i)
+        for (int i = 0; i < size_; ++i)
             if (data[i] == val) return true;
         return false;
     }
 
     template <typename T>
     bool array<T>::bidirectional_search(const T& val) const {
-        int left = 0, right = size - 1;
+        int left = 0, right = size_ - 1;
         while (left <= right) {
             if (data[left] == val || data[right] == val) return true;
             ++left; --right;
@@ -110,7 +110,7 @@ namespace cds {
 
     template <typename T>
     bool array<T>::binary_search(const T& val) const {
-        int left = 0, right = size - 1;
+        int left = 0, right = size_ - 1;
         while (left <= right) {
             int mid = left + (right - left) / 2;
             if (data[mid] == val) return true;
@@ -122,24 +122,24 @@ namespace cds {
 
     template <typename T>
     bool array<T>::is_sorted() const {
-        for (int i = 0; i < size - 1; ++i)
+        for (int i = 0; i < size_ - 1; ++i)
             if (data[i] > data[i + 1]) return false; // FIXED BUG
         return true;
     }
 
     template <typename T>
     void array<T>::bubble_sort() {
-        for (int i = 0; i < size; ++i)
-            for (int j = 0; j < size - 1 - i; ++j)
+        for (int i = 0; i < size_; ++i)
+            for (int j = 0; j < size_ - 1 - i; ++j)
                 if (data[j] > data[j + 1])
                     std::swap(data[j], data[j + 1]);
     }
 
     template <typename T>
     void array<T>::bubble_sort_optimized() {
-        for (int i = 0; i < size; ++i) {
+        for (int i = 0; i < size_; ++i) {
             bool swapped = false;
-            for (int j = 0; j < size - 1 - i; ++j)
+            for (int j = 0; j < size_ - 1 - i; ++j)
                 if (data[j] > data[j + 1]) {
                     std::swap(data[j], data[j + 1]);
                     swapped = true;
@@ -150,9 +150,9 @@ namespace cds {
 
     template <typename T>
     void array<T>::selection_sort() {
-        for (int i = 0; i < size - 1; ++i) {
+        for (int i = 0; i < size_ - 1; ++i) {
             int min_idx = i;
-            for (int j = i + 1; j < size; ++j)
+            for (int j = i + 1; j < size_; ++j)
                 if (data[j] < data[min_idx]) min_idx = j;
             std::swap(data[i], data[min_idx]);
         }
@@ -160,7 +160,7 @@ namespace cds {
 
     template <typename T>
     void array<T>::insertion_sort() {
-        for (int i = 1; i < size; ++i) {
+        for (int i = 1; i < size_; ++i) {
             T key = data[i];
             int j = i - 1;
             while (j >= 0 && data[j] > key) {
@@ -173,8 +173,8 @@ namespace cds {
 
     template <typename T>
     void array<T>::shell_sort() {
-        for (int gap = size / 2; gap > 0; gap /= 2)
-            for (int i = gap; i < size; ++i) {
+        for (int gap = size_ / 2; gap > 0; gap /= 2)
+            for (int i = gap; i < size_; ++i) {
                 T key = data[i];
                 int j = i;
                 while (j >= gap && data[j - gap] > key) {
@@ -220,7 +220,7 @@ namespace cds {
 
     template <typename T>
     void array<T>::merge_sort() {
-        merge_sort_rec(0, size - 1);
+        merge_sort_rec(0, size_ - 1);
     }
 
     template <typename T>
@@ -251,6 +251,6 @@ namespace cds {
 
     template <typename T>
     void array<T>::quick_sort() {
-        quick_sort_rec(0, size - 1);
+        quick_sort_rec(0, size_ - 1);
     }
 }
