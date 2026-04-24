@@ -23,4 +23,12 @@ namespace cds {
         node_b* right;
         explicit node_b(const T& val) : data(val), left(nullptr), right(nullptr) {}
     };
+
+    template <typename K, typename V>
+    struct node_h {
+        K key;
+        V val;
+        node_h* next;
+        explicit node_h(const K& k, const V& v) : key(k), val(v), next(nullptr) {}
+    };
 }
