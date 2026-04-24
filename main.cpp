@@ -7,6 +7,7 @@
 #include "include/singly_circular.hpp"
 #include "include/doubly_circular.hpp"
 #include "include/array.hpp"
+#include "include/hash_map.hpp"
 
 // ============================================================
 //  main.cpp — cds (Custom Data Structures) userdefined namespace
@@ -28,6 +29,8 @@ int main() {
 
     cds::bst<int>    my_tree;    // binary search tree — insert, erase, contains, traversals
     cds::array<int>  my_array(10);  // fixed size array — search, sort
+
+    cds::hash_map<std::string, int> my_map; // hash map — insert, get, erase, contains
 
     return 0;
 }
