@@ -18,6 +18,7 @@ data structures and algorithms.
 | `queue.hpp` | `cds::queue<T>` | FIFO queue |
 | `bst.hpp` | `cds::bst<T>` | Binary search tree |
 | `array.hpp` | `cds::array<T>` | Array with search and sort |
+| `lru_cache.hpp` | `cds::lru_cache<K, V>` | Least Recently Used (LRU) cache |
 
 ---
 

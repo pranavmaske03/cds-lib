@@ -31,4 +31,13 @@ namespace cds {
         node_h* next;
         explicit node_h(const K& k, const V& v) : key(k), val(v), next(nullptr) {}
     };
+
+    template <typename K, typename V>
+    struct node_l {
+        K key;
+        V val;
+        node_l* next;
+        node_l* prev;
+        explicit node_l(const K& k, const V& v) : key(k), val(v), next(nullptr), prev(nullptr) {}
+    };
 }

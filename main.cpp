@@ -8,6 +8,7 @@
 #include "include/doubly_circular.hpp"
 #include "include/array.hpp"
 #include "include/hash_map.hpp"
+#include "include/lru_cache.hpp"
 
 // ============================================================
 //  main.cpp — cds (Custom Data Structures) userdefined namespace
@@ -31,6 +32,7 @@ int main() {
     cds::array<int>  my_array(10);  // fixed size array — search, sort
 
     cds::hash_map<std::string, int> my_map; // hash map — insert, get, erase, contains
+    cds::lru_cache<int, std::string> my_cache(5); // LRU cache — get, put, remove, contains
 
     return 0;
 }
